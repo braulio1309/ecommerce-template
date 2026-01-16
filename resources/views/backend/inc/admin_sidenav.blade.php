@@ -1095,6 +1095,14 @@
                             </a>
                         </li>
                         @endcan
+                        @can('view_wallets')
+                        <li class="aiz-side-nav-item">
+                            <a href="{{ route('admin.wallets.index') }}"
+                                class="aiz-side-nav-link {{ areActiveRoutes(['admin.wallets.index', 'admin.wallets.show'])}}">
+                                <span class="aiz-side-nav-text">{{ translate('Recargas') }}</span>
+                            </a>
+                        </li>
+                        @endcan
                         @if(get_setting('classified_product') == 1)
                         @can('view_classified_products')
                         <li class="aiz-side-nav-item">
