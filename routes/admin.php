@@ -4,6 +4,7 @@ use App\Http\Controllers\AddonController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Admin\Report\EarningReportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminWalletController;
 use App\Http\Controllers\AizUploadController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AttributeController;
@@ -280,6 +281,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-ba
         Route::get('/customers/login/{id}', 'login')->name('customers.login');
         Route::get('/customers/destroy/{id}', 'destroy')->name('customers.destroy');
         Route::post('/bulk-customer-delete', 'bulk_customer_delete')->name('bulk-customer-delete');
+    });
+
+    // Admin Wallet Management
+    Route::controller(AdminWalletController::class)->group(function () {
+        Route::get('/wallets', 'index')->name('admin.wallets.index');
+        Route::get('/wallets/{id}', 'show')->name('admin.wallets.show');
+        Route::post('/wallets/{id}/recharge', 'recharge')->name('admin.wallets.recharge');
     });
 
     // Newsletter
