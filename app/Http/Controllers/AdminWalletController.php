@@ -13,9 +13,9 @@ class AdminWalletController extends Controller
 {
     public function __construct()
     {
-        // Staff Permission Check - you can customize this based on your permission system
-        // $this->middleware(['permission:view_wallets'])->only('index', 'show');
-        // $this->middleware(['permission:recharge_wallet'])->only('recharge');
+        // Staff Permission Check
+        $this->middleware(['permission:view_wallets'])->only('index', 'show');
+        $this->middleware(['permission:recharge_wallet'])->only('recharge');
     }
 
     /**
@@ -65,7 +65,7 @@ class AdminWalletController extends Controller
         // Get all wallet IDs for this user
         $walletIds = $user->wallets->pluck('id');
 
-        // Get all transactions for these wallets
+        // Get all transactions for these wallets with eager loading
         $transactions = WalletTransaction::whereIn('wallet_id', $walletIds)
             ->with(['wallet', 'adminUser'])
             ->orderBy('created_at', 'desc')
